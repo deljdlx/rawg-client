@@ -43,7 +43,7 @@ class Game
 
         foreach ($this->data['platforms'] as $platformData) {
             $platform = new Platform($this->client);
-            $platform->loadFromArray($platformData['plaform']);
+            $platform->loadFromArray($platformData['platform']);
             $this->plaforms[] = $platform;
         }
 

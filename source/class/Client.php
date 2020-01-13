@@ -82,7 +82,7 @@ class Client
 
     public function getGames($pageStart = 1, $maxPage = 1)
     {
-        $endPoint = $this->endPoints['tags'];
+        $endPoint = $this->endPoints['games'];
         $pageCount = 0;
         $games = [];
         do {
