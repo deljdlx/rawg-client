@@ -1,5 +1,5 @@
 <?php
-namespace ElBiniou;
+namespace ElBiniou\Rawg;
 
 //https://rawg.io/apidocs
 //documentation : https://api.rawg.io/docs/?format=openapi
@@ -7,7 +7,7 @@ namespace ElBiniou;
 //@todo mettre une couche de cache
 //@todo gérer la pagination
 
-class RawgClient
+class Client
 {
 
 

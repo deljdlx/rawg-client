@@ -1,10 +1,10 @@
 <?php
 
-use ElBiniou\RawgClient;
+use ElBiniou\Rawg\Client;
 
-require __DIR__.'/RawgClient.php';
+require __DIR__.'/source/autoload.php';
 
-$client = new RawgClient();
+$client = new Client();
 
 $categories = $client->getCategories();
 print_r($categories);
