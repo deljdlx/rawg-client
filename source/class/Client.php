@@ -57,11 +57,11 @@ class Client
      * @param int $maxPage
      * @return Tag[]
      */
-    public function getTags($maxPage = 1)
+    public function getTags($pageStart = 1, $maxPage = 1)
     {
         $tags = [];
 
-        $endPoint = $this->endPoints['tags'];
+        $endPoint = $this->endPoints['tags'] . '?page=' . $pageStart;
 
         $pageCount = 0;
         do {
@@ -82,12 +82,12 @@ class Client
 
     public function getGames($pageStart = 1, $maxPage = 1)
     {
-        $endPoint = $this->endPoints['games'];
+        $endPoint = $this->endPoints['games']. '?page=' . $pageStart;
         $pageCount = 0;
         $games = [];
         do {
 
-            $data = $this->query($endPoint . '?page=' . $pageStart);
+            $data = $this->query($endPoint );
             foreach ($data['results'] as $game) {
                 $instance = new Game($this);
                 $instance->loadFromArray($game);
