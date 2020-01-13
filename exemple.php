@@ -10,14 +10,15 @@ $categories = $client->getCategories();
 print_r($categories);
 echo "\n================\n";
 
+
 print_r(
     $client->getPlatforms()
 );
 
 echo "\n================\n";
 
-/*
+
 print_r(
     $client->getTags()
 );
-*/
+

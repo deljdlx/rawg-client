@@ -28,24 +28,32 @@ class Client
         $platforms = [];
         foreach ($data['results'] as $platform) {
             unset($platform['games']);
-            $platforms[]= $platform;
+            $instance = new Platform($this);
+            $instance->loadFromArray($platform);
+            $platforms[]= $instance;
         }
         return $platforms;
     }
 
 
+    /**
+     * @return Category[]
+     */
     public function getCategories()
     {
         $data = $this->query($this->endPoints['categories']);
         $categories = [];
         foreach ($data['results'] as $category) {
             unset($category['games']);
-            $categories[]= $category;
+
+            $instance = new Category($this);
+            $instance->loadFromArray($category);
+            $categories[]= $instance;
         }
         return $categories;
     }
 
-    public function getTags($maxPage = 5)
+    public function getTags($maxPage = 1)
     {
         $tags = [];
 
@@ -57,7 +65,9 @@ class Client
             $data = $this->query($endPoint);
             foreach ($data['results'] as $tag) {
                 unset($tag['games']);
-                $tags[] = $tag;
+                $instance = new Tag($this);
+                $instance->loadFromArray($tag);
+                $tags[] = $instance;
                 $endPoint = $data['next'];
             }
             $pageCount++;
