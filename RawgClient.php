@@ -1,6 +1,9 @@
 <?php
 namespace ElBiniou;
+
+//https://rawg.io/apidocs
 //documentation : https://api.rawg.io/docs/?format=openapi
+
 //@todo mettre une couche de cache
 //@todo gérer la pagination
 
