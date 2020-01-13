@@ -22,3 +22,11 @@ print_r(
     $client->getTags()
 );
 
+echo "\n================\n";
+
+
+print_r(
+    $client->getGames()
+);
+
+

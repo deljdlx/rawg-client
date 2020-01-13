@@ -1,4 +1,5 @@
 <?php
+
 namespace ElBiniou\Rawg;
 
 //https://rawg.io/apidocs
@@ -10,18 +11,18 @@ namespace ElBiniou\Rawg;
 class Client
 {
 
-
-
     protected $endPoints = [
         'categories' => '/genres',
         'tags' => '/tags',
         'platforms' => '/platforms',
+        'games' => '/games',
     ];
 
     private $serviceURLRoot = 'https://api.rawg.io/api';
 
-
-
+    /**
+     * @return Platform[]
+     */
     public function getPlatforms()
     {
         $data = $this->query($this->endPoints['platforms']);
@@ -30,11 +31,10 @@ class Client
             unset($platform['games']);
             $instance = new Platform($this);
             $instance->loadFromArray($platform);
-            $platforms[]= $instance;
+            $platforms[] = $instance;
         }
         return $platforms;
     }
-
 
     /**
      * @return Category[]
@@ -48,11 +48,15 @@ class Client
 
             $instance = new Category($this);
             $instance->loadFromArray($category);
-            $categories[]= $instance;
+            $categories[] = $instance;
         }
         return $categories;
     }
 
+    /**
+     * @param int $maxPage
+     * @return Tag[]
+     */
     public function getTags($maxPage = 1)
     {
         $tags = [];
@@ -71,24 +75,36 @@ class Client
                 $endPoint = $data['next'];
             }
             $pageCount++;
-        } while($endPoint && $pageCount < $maxPage);
-
+        } while ($endPoint && $pageCount < $maxPage);
 
         return $tags;
     }
 
+    public function getGames($pageStart = 1, $maxPage = 1)
+    {
+        $endPoint = $this->endPoints['tags'];
+        $pageCount = 0;
+        $games = [];
+        do {
+
+            $data = $this->query($endPoint . '?page=' . $pageStart);
+            foreach ($data['results'] as $game) {
+                $instance = new Game($this);
+                $instance->loadFromArray($game);
+                $games[] = $instance;
+                $endPoint = $data['next'];
+            }
+            $pageCount++;
+        } while ($endPoint && $pageCount < $maxPage);
+
+        return $games;
+    }
 
 
     private function query($endPoint)
     {
         $endPoint = str_replace($this->serviceURLRoot, '', $endPoint);
-        $data = file_get_contents($this->serviceURLRoot.$endPoint);
+        $data = file_get_contents($this->serviceURLRoot . $endPoint);
         return json_decode($data, true);
     }
 }
-
-
-
-
-
-

@@ -24,7 +24,7 @@ class Category
         $this->client = $client;
     }
 
-    public function loadFromArray($data)
+    public function loadFromArray(array $data)
     {
         $this->data = $data;
         return $this;
@@ -44,5 +44,5 @@ class Category
     {
         return $this->data['image_background'];
     }
-
 }
+
